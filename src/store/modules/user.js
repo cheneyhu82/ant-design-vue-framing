@@ -4,6 +4,7 @@ import { ACCESS_TOKEN, USER_NAME,USER_INFO,USER_AUTH,SYS_BUTTON_AUTH } from "@/s
 import { welcome } from "@/utils/util"
 import { queryPermissionsByUser } from '@/api/api'
 import { getAction } from '@/api/manage'
+import defaultSettings from "@/defaultSettings"
 
 const user = {
   state: {
@@ -133,7 +134,8 @@ const user = {
             })
             console.log(" menu show json ", menuData)
             //update--end--autor:qinfeng-----date:20200109------for：JEECG-63 一级菜单的子菜单全部是隐藏路由，则一级菜单不显示------
-            commit('SET_PERMISSIONLIST', menuData)
+            // commit('SET_PERMISSIONLIST', menuData)
+            commit('SET_PERMISSIONLIST', defaultSettings.defaultMenuData)
           } else {
             reject('getPermissionList: permissions must be a non-null array !')
           }

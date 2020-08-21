@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css' // progress bar style
 import notification from 'ant-design-vue/es/notification'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { generateIndexRouter } from "@/utils/util"
-import { asyncRouterMap } from "@/config/router.config"
+import defaultSettings from "@/defaultSettings"
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -28,9 +28,10 @@ router.beforeEach((to, from, next) => {
               if (menuData === null || menuData === "" || menuData === undefined) {
                 return;
               }
-              let constRoutes = [];
-              constRoutes = generateIndexRouter(menuData);
-              // let constRoutes = asyncRouterMap
+              // console.log('menuData', menuData)
+              // let constRoutes = [];
+              // constRoutes = generateIndexRouter(menuData);
+              let constRoutes = generateIndexRouter(defaultSettings.defaultMenuData);
               console.log('constRoutes', constRoutes)
               // 添加主界面路由
               store.dispatch('UpdateAppRouter',  { constRoutes }).then(() => {
@@ -47,7 +48,8 @@ router.beforeEach((to, from, next) => {
                 }
               })
             })
-          .catch(() => {
+          .catch(err => {
+            console.error('抛出异常：', err)
            /* notification.error({
               message: '系统提示',
               description: '请求用户信息失败，请重试！'
